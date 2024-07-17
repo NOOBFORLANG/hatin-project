@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hatin/src/ui/app/app_view_model.dart';
 import 'package:hatin/src/ui/home/home_view.dart';
+import 'package:hatin/src/ui/my_page/my_page.dart';
 import 'package:hatin/src/ui/routine/routin_view_model.dart';
 import 'package:hatin/src/widget/hattin_image_icon.dart';
 import 'package:provider/provider.dart';
@@ -34,9 +35,7 @@ class _AppState extends State<App> {
             Container(
               color: Colors.green,
             ),
-            Container(
-              color: Colors.blue,
-            ),
+            const MyPage(),
           ],
         ),
       );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatin/src/widget/gradient_button.dart';
-import 'package:hatin/src/widget/user_text_filed.dart';
+import 'package:hatin/src/widget/user_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
