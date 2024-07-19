@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class ServiceButton extends StatelessWidget {
   final String label;
+  final VoidCallback onButtonPressed;
 
   const ServiceButton({
     super.key,
     required this.label,
+    required this.onButtonPressed,
   });
 
   @override
@@ -18,9 +20,7 @@ class ServiceButton extends StatelessWidget {
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         IconButton(
-          onPressed: () {
-            print("눌림");
-          },
+          onPressed: onButtonPressed,
           icon: const Icon(Icons.arrow_forward_ios),
         ),
       ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hatin/src/ui/my_page/change_user_info.dart';
+import 'package:hatin/src/ui/my_page/modify_user_info.dart';
 import 'package:hatin/src/widget/service_button.dart';
 import 'package:hatin/src/widget/service_switch_button.dart';
 
@@ -62,10 +62,22 @@ class _MyPageState extends State<MyPage> {
         children: [
           Row(
             children: [
-              const Text(
-                "바른생활김덕인",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ModifyUserInfo(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "바른생활김덕인",
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  )),
               IconButton(
                 icon: const Icon(
                   Icons.arrow_forward_ios,
@@ -75,7 +87,7 @@ class _MyPageState extends State<MyPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChangeUserInfo(),
+                      builder: (context) => const ModifyUserInfo(),
                     ),
                   );
                 },
@@ -144,58 +156,58 @@ class _MyPageState extends State<MyPage> {
   }
 
   Widget _post() {
-    return const SizedBox(
+    return SizedBox(
       width: double.infinity,
       height: 150,
       child: Column(
         children: [
-          Align(
+          const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "게시글 관리",
                 style: TextStyle(fontSize: 14, color: Color(0xff9B9B9B)),
               )),
-          ServiceButton(label: "내 게시글"),
-          ServiceButton(label: "내 댓글"),
+          ServiceButton(label: "내 게시글", onButtonPressed: () {}),
+          ServiceButton(label: "내 댓글", onButtonPressed: () {}),
         ],
       ),
     );
   }
 
   Widget _friendsManager() {
-    return const SizedBox(
+    return SizedBox(
       width: double.infinity,
       height: 200,
       child: Column(
         children: [
-          Align(
+          const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "친구 관리",
                 style: TextStyle(fontSize: 14, color: Color(0xff9B9B9B)),
               )),
-          ServiceButton(label: "차단 관리"),
-          ServiceSwitchButton(label: "팔로우 허락 받기"),
-          ServiceSwitchButton(label: "알림 받기"),
+          ServiceButton(label: "차단 관리", onButtonPressed: () {}),
+          const ServiceSwitchButton(label: "팔로우 허락 받기"),
+          const ServiceSwitchButton(label: "알림 받기"),
         ],
       ),
     );
   }
 
   Widget _customerService() {
-    return const Center(
+    return Center(
       child: SizedBox(
         width: double.infinity,
         height: 200,
         child: Column(
           children: [
-            Align(
+            const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "고객 센터",
                   style: TextStyle(fontSize: 14, color: Color(0xff9B9B9B)),
                 )),
-            ServiceButton(label: "문의하기"),
+            ServiceButton(label: "문의하기", onButtonPressed: () {})
           ],
         ),
       ),

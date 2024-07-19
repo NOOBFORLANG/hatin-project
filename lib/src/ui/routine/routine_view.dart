@@ -208,7 +208,6 @@ class _RoutineViewState extends State<RoutineView> {
             onTap: () {
               Provider.of<RoutinViewModel>(context, listen: false)
                   .showDeleteDialog(context);
-              print("눌림");
             },
             child: const Text(
               "삭제",

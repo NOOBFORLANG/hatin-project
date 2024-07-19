@@ -17,7 +17,6 @@ class LoginSignup2 extends StatelessWidget {
         children: [
           _signuptext(),
           _signupemail(),
-          _signuppassword(),
           _signupckpassword(),
           _btnnextsignup(),
         ],
@@ -67,55 +66,6 @@ class LoginSignup2 extends StatelessWidget {
                   hintText: "01012345678",
                 ),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _signuppassword() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(width: double.infinity, child: Text("성별")),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xffE5E5E5),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "여자",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xffE5E5E5),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "남자",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         ],
