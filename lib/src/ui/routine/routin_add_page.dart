@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // 코드 리펙토링, 반응형
 
@@ -10,9 +11,13 @@ class RoutinAddPage extends StatefulWidget {
 }
 
 class _RoutinAddPageState extends State<RoutinAddPage> {
-  List<bool> _dowColor = List<bool>.filled(7, false);
+  final List<bool> _dowColor = List<bool>.filled(7, false);
   // 요일 클릭 시 색 변화를 위한 List , false = 클릭전 , true = 클릭후
   TimeOfDay initialTime = const TimeOfDay(hour: 09, minute: 00);
+
+  final List<bool> _amPmColor =
+      List<bool>.filled(2, false); // 오전 , 오후 선택시 색상 변경을 위한 변수
+  final List<String> _amPm = ["오전", "오후"]; // 오전 오후 선택박스
   // 현재시간 변수
   @override
   Widget build(BuildContext context) {
@@ -23,32 +28,36 @@ class _RoutinAddPageState extends State<RoutinAddPage> {
     //print("스크린 높이 {$screenheight}"); // 781
 
     return Scaffold(
-      appBar: AppBar(
-        // 앱바 , 앱바 옆에 X
-        elevation: 0.0,
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          "루틴 추가하기",
-          style: TextStyle(fontSize: 16),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          )
-        ],
-      ),
+      appBar: _appBar(),
       body: _body(),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _routinCreateButton(), // 루틴 추가하기 버튼
+    );
+  }
+
+  PreferredSizeWidget _appBar() {
+    return AppBar(
+      // 앱바 , 앱바 옆에 X
+      elevation: 0.0,
+      centerTitle: true,
+      backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
+      title: const Text(
+        "루틴 추가하기",
+        style: TextStyle(fontSize: 16),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        )
+      ],
     );
   }
 
@@ -123,10 +132,11 @@ class _RoutinAddPageState extends State<RoutinAddPage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Center(
         child: SizedBox(
-          width: 335, //width:335, height:45
+          width:
+              MediaQuery.of(context).size.width * 0.854, //width:335, height:45
           height: 45,
           child: TextField(
-            readOnly: true,
+            //readOnly: true,
             decoration: InputDecoration(
                 filled: true,
                 fillColor: Color(0xffF1F3F5),
@@ -141,22 +151,66 @@ class _RoutinAddPageState extends State<RoutinAddPage> {
                 hintText:
                     "${initialTime.period.toString().split('.')[1]} ${initialTime.hour} ${initialTime.minute}",
                 hintStyle: TextStyle(color: Color(0xff9B9B9B), fontSize: 18)),
-            onTap: () async {
-              final TimeOfDay? timeOfDay = await showTimePicker(
-                context: context,
-                initialTime: initialTime,
-              );
-              if (timeOfDay != null) {
-                setState(() {
-                  initialTime = timeOfDay;
-                });
-                print("$initialTime");
-              }
+            onTap: () {
+              timeSetting();
             },
           ),
         ),
       ),
     );
+  }
+
+// 시간 설정 박스 클릭시 showModalBottomSheet가 올라옴
+  void timeSetting() {
+    showModalBottomSheet(
+        // 아직 다 안만듦
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(35.0)),
+        ),
+        builder: (context) => SizedBox(
+              height: 500,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      _amPm.length,
+                      (index) => GestureDetector(
+                        child: Container(
+                          width: 156,
+                          height: 45,
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(32),
+                              color: !_amPmColor[index]
+                                  ? Colors.black
+                                  : Colors.white),
+                          child: Center(
+                              child: Text(
+                            _amPm[index],
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: !_amPmColor[index]
+                                    ? Colors.white
+                                    : Colors.black),
+                          )),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _amPmColor[index] = !_amPmColor[index];
+                            print("오전${_amPmColor[0]} 오후${_amPmColor[1]}");
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ));
   }
 
 // |루틴 반복| 텍스트
@@ -209,7 +263,7 @@ class _RoutinAddPageState extends State<RoutinAddPage> {
               onTap: () {
                 setState(() {
                   _dowColor[index] = !_dowColor[index];
-                  print(DOW[index]);
+                  //print(DOW[index]);
                 });
               },
             ),
@@ -310,7 +364,7 @@ class _RoutinAddPageState extends State<RoutinAddPage> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
-        width: 335, //width:355, height:56
+        width: double.infinity, //width:355, height:56
         height: 56,
         child: FloatingActionButton.extended(
             backgroundColor: Color(0xffFe4F28),

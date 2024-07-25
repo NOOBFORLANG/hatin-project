@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hatin/src/ui/login/login_page.dart';
+import 'package:hatin/src/ui/login/login_signup_page1.dart';
 import 'package:hatin/src/widget/gradient_button.dart';
 import 'package:hatin/src/widget/custom_outlined_button.dart';
 import 'package:hatin/src/widget/hattin_image_icon.dart';
 
-class OnboardView extends StatelessWidget {
+class OnboardView extends StatefulWidget {
   const OnboardView({super.key});
 
+  @override
+  State<OnboardView> createState() => _OnboardViewState();
+}
+
+class _OnboardViewState extends State<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,12 +109,20 @@ class OnboardView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: GradientButton(
                   label: "로그인하기",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const LoginPage()));
+                  },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: CustomOutlinedButton(onPressed: () {}, label: "회원가입"),
+                child: CustomOutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const LoginSignup1()));
+                    },
+                    label: "회원가입"),
               )
             ],
           ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hatin/src/ui/onboard/onboard_view.dart';
 import 'package:hatin/src/ui/routine/routin_page.dart';
 import 'package:hatin/src/ui/routine/routin_view_model.dart';
 import 'package:intl/intl.dart';
@@ -78,7 +79,22 @@ class _TabBarScreenState extends State<HomeView>
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(32.0))),
               centerTitle: false,
-              title: Text(DateFormat("yyyy년 M월 d일").format(DateTime.now())),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(DateFormat("yyyy년 M월 d일").format(DateTime.now())),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const OnboardView()));
+                    },
+                    child: const Text(
+                      "로그인/회원가입",
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                  ),
+                ],
+              ),
               bottom: _tabBar(),
             ),
           ),
